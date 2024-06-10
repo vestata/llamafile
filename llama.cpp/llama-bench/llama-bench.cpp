@@ -1060,19 +1060,19 @@ struct markdown_printer : public printer {
 
     void print_header(const cmd_params & params) override {
         // select fields to print
-        fields.emplace_back("cpu_info"); // [jart]
+        // fields.emplace_back("cpu_info"); // [jart]
         fields.emplace_back("model_filename");
-        // fields.emplace_back("model");
-        // fields.emplace_back("size"); // [jart]
-        // fields.emplace_back("params"); // [jart]
-        // fields.emplace_back("backend"); // [jart]
+        fields.emplace_back("model");
+        fields.emplace_back("size"); // [jart]
+        fields.emplace_back("params"); // [jart]
+        fields.emplace_back("backend"); // [jart]
         bool is_cpu_backend = test::get_backend() == "CPU" || test::get_backend() == "BLAS";
         if (!is_cpu_backend) {
             fields.emplace_back("n_gpu_layers");
         }
-        // if (params.n_threads.size() > 1 || params.n_threads != cmd_params_defaults.n_threads || is_cpu_backend) {
-        //     fields.emplace_back("n_threads");
-        // }
+        if (params.n_threads.size() > 1 || params.n_threads != cmd_params_defaults.n_threads || is_cpu_backend) {
+            fields.emplace_back("n_threads");
+        }
         if (params.n_batch.size() > 1 || params.n_batch != cmd_params_defaults.n_batch) {
             fields.emplace_back("n_batch");
         }
